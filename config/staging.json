@@ -1,6 +1,6 @@
 {
   "subgraphName": "in19farkt/starknet-bridge-staging",
-  "startBlock": 5853128,
+  "startBlock": 6221339,
   "network": "goerli",
   "modules": {
     "starknetMessaging": "0xde29d060D45901Fb19ED6C6e959EB22d8626708e",
