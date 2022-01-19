@@ -1,5 +1,4 @@
 import { Bytes } from "@graphprotocol/graph-ts";
-// import * as config from '../../generated/config'
 import { bridgesAddresses } from "../../generated/config";
 
 export let ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
