@@ -8,13 +8,23 @@ import {
   loadOrCreateUnfinishedDeposit,
   loadUnfinishedDeposit,
 } from "../../entities";
-import { addUniq, isL1BridgeAddress, TransferStatus } from "../../utils";
+import {
+  ADDRESS_TYPE,
+  addUniq,
+  bigIntToAddressBytes,
+  isBridgeDepositMessage,
+  TransferStatus,
+} from "../../utils";
 import { makeIdFromPayload } from "../../utils/makeIdFromPayload";
 
 export function handleLogMessageToL2(event: LogMessageToL2): void {
   let bridgeL1Address = event.params.from_address;
+  let bridgeL2Address = bigIntToAddressBytes(
+    event.params.to_address,
+    ADDRESS_TYPE.STARKNET
+  );
 
-  if (!isL1BridgeAddress(bridgeL1Address)) {
+  if (!isBridgeDepositMessage(bridgeL1Address, bridgeL2Address)) {
     return;
   }
 
@@ -32,8 +42,12 @@ export function handleLogMessageToL2(event: LogMessageToL2): void {
 
 export function handleConsumedMessageToL2(event: ConsumedMessageToL2): void {
   let bridgeL1Address = event.params.from_address;
+  let bridgeL2Address = bigIntToAddressBytes(
+    event.params.to_address,
+    ADDRESS_TYPE.STARKNET
+  );
 
-  if (!isL1BridgeAddress(bridgeL1Address)) {
+  if (!isBridgeDepositMessage(bridgeL1Address, bridgeL2Address)) {
     return;
   }
 

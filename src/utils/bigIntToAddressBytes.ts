@@ -8,7 +8,7 @@ export enum ADDRESS_TYPE {
   ETHEREUM,
 }
 
-export function bugIntToAddressBytes(
+export function bigIntToAddressBytes(
   address: BigInt,
   type: ADDRESS_TYPE
 ): Bytes {

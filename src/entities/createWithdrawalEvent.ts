@@ -3,7 +3,7 @@ import { LogMessageToL1 } from "../../generated/StarknetMessaging/StarknetMessag
 import {
   convertUint256ToBigInt,
   getUniqId,
-  bugIntToAddressBytes,
+  bigIntToAddressBytes,
   TransferStatus,
   ADDRESS_TYPE,
 } from "../utils";
@@ -15,12 +15,12 @@ export function createWithdrawalEvent(event: LogMessageToL1): WithdrawalEvent {
   let amountLow = event.params.payload[2];
   let amountHigh = event.params.payload[3];
 
-  withdrawalEvent.l1Recipient = bugIntToAddressBytes(
+  withdrawalEvent.l1Recipient = bigIntToAddressBytes(
     l1Recipient,
     ADDRESS_TYPE.ETHEREUM
   );
   withdrawalEvent.bridgeAddressL1 = event.params.to_address;
-  withdrawalEvent.bridgeAddressL2 = bugIntToAddressBytes(
+  withdrawalEvent.bridgeAddressL2 = bigIntToAddressBytes(
     event.params.from_address,
     ADDRESS_TYPE.STARKNET
   );

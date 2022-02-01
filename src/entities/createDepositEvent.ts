@@ -3,7 +3,7 @@ import { LogMessageToL2 } from "../../generated/StarknetMessaging/StarknetMessag
 import {
   convertUint256ToBigInt,
   getUniqId,
-  bugIntToAddressBytes,
+  bigIntToAddressBytes,
   TransferStatus,
   ADDRESS_TYPE,
 } from "../utils";
@@ -15,12 +15,12 @@ export function createDepositEvent(event: LogMessageToL2): DepositEvent {
   let amountLow = event.params.payload[1];
   let amountHigh = event.params.payload[2];
 
-  depositEvent.l2Recipient = bugIntToAddressBytes(
+  depositEvent.l2Recipient = bigIntToAddressBytes(
     l2Recipient,
     ADDRESS_TYPE.STARKNET
   );
   depositEvent.bridgeAddressL1 = event.params.from_address;
-  depositEvent.bridgeAddressL2 = bugIntToAddressBytes(
+  depositEvent.bridgeAddressL2 = bigIntToAddressBytes(
     event.params.to_address,
     ADDRESS_TYPE.STARKNET
   );

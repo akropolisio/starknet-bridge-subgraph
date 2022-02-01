@@ -8,13 +8,23 @@ import {
   loadUnfinishedWithdrawal,
   loadWithdrawalEvent,
 } from "../../entities";
-import { addUniq, isL1BridgeAddress, TransferStatus } from "../../utils";
+import {
+  ADDRESS_TYPE,
+  addUniq,
+  bigIntToAddressBytes,
+  isBridgeWithdrawalMessage,
+  TransferStatus,
+} from "../../utils";
 import { makeIdFromPayload } from "../../utils/makeIdFromPayload";
 
 export function handleLogMessageToL1(event: LogMessageToL1): void {
   let bridgeL1Address = event.params.to_address;
+  let bridgeL2Address = bigIntToAddressBytes(
+    event.params.from_address,
+    ADDRESS_TYPE.STARKNET
+  );
 
-  if (!isL1BridgeAddress(bridgeL1Address)) {
+  if (!isBridgeWithdrawalMessage(bridgeL2Address, bridgeL1Address)) {
     return;
   }
 
@@ -32,8 +42,12 @@ export function handleLogMessageToL1(event: LogMessageToL1): void {
 
 export function handleConsumedMessageToL1(event: ConsumedMessageToL1): void {
   let bridgeL1Address = event.params.to_address;
+  let bridgeL2Address = bigIntToAddressBytes(
+    event.params.from_address,
+    ADDRESS_TYPE.STARKNET
+  );
 
-  if (!isL1BridgeAddress(bridgeL1Address)) {
+  if (!isBridgeWithdrawalMessage(bridgeL2Address, bridgeL1Address)) {
     return;
   }
 
