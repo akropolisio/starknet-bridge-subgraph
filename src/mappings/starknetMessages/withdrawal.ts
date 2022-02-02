@@ -59,6 +59,8 @@ export function handleConsumedMessageToL1(event: ConsumedMessageToL1): void {
     unfinishedWithdrawal.withdrawalEvents[0]
   );
   withdrawalEvent.status = TransferStatus.FINISHED;
+  withdrawalEvent.finishedAtBlock = event.block.number;
+  withdrawalEvent.finishedAtDate = event.block.timestamp;
   withdrawalEvent.finishedTxHash = event.transaction.hash;
   withdrawalEvent.save();
 

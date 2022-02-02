@@ -29,6 +29,8 @@ export function createWithdrawalEvent(event: LogMessageToL1): WithdrawalEvent {
 
   withdrawalEvent.createdAtBlock = event.block.number;
   withdrawalEvent.createdTxHash = event.transaction.hash;
+  withdrawalEvent.finishedAtBlock = null;
+  withdrawalEvent.finishedAtDate = null;
   withdrawalEvent.finishedTxHash = null;
 
   withdrawalEvent.save();

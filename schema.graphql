@@ -12,6 +12,8 @@ type DepositEvent @entity {
   status: TransferStatus!
   createdAtBlock: BigInt!
   createdTxHash: Bytes!
+  finishedAtBlock: BigInt
+  finishedAtDate: BigInt
   finishedTxHash: Bytes
 }
 
@@ -35,6 +37,8 @@ type WithdrawalEvent @entity {
   status: TransferStatus!
   createdAtBlock: BigInt!
   createdTxHash: Bytes!
+  finishedAtBlock: BigInt
+  finishedAtDate: BigInt
   finishedTxHash: Bytes
 }
 

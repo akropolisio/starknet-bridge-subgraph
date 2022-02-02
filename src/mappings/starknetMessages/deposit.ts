@@ -57,6 +57,8 @@ export function handleConsumedMessageToL2(event: ConsumedMessageToL2): void {
 
   let depositEvent = loadDepositEvent(unfinishedDeposit.depositEvents[0]);
   depositEvent.status = TransferStatus.FINISHED;
+  depositEvent.finishedAtBlock = event.block.number;
+  depositEvent.finishedAtDate = event.block.timestamp;
   depositEvent.finishedTxHash = event.transaction.hash;
   depositEvent.save();
 
